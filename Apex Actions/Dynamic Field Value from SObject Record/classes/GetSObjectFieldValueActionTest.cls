@@ -10,11 +10,11 @@ public class GetSObjectFieldValueActionTest {
             NumberOfEmployees = 5
         );
         insert dummyAcc;
-        dummyAcc = [SELECT Id,Name, AnnualRevenue, IsPartner, NumberOfEmployees, LastActivityDate, CreatedDate FROM Account WHERE Id = :dummyAcc.Id];
+        dummyAcc = [SELECT Id,Name, AnnualRevenue, IsDeleted, NumberOfEmployees, LastActivityDate, CreatedDate FROM Account WHERE Id = :dummyAcc.Id];
         GetSObjectFieldValueAction.ActionInput[] actionInputs = getFlowActionInputs(
             dummyAcc, 
             'Account',
-            new String[]{'Name', 'AnnualRevenue', 'IsPartner', 'NumberOfEmployees', 'LastActivityDate', 'CreatedDate' }
+            new String[]{'Name', 'AnnualRevenue', 'IsDeleted', 'NumberOfEmployees', 'LastActivityDate', 'CreatedDate' }
         );
 
         Test.startTest();
@@ -25,7 +25,7 @@ public class GetSObjectFieldValueActionTest {
 
         System.assertEquals(dummyAcc.AnnualRevenue, outputs[0].currencyOutput,'Unexpected currency output.');
 
-        System.assertEquals(dummyAcc.IsPartner, outputs[0].booleanOutput,'Unexpected boolean output.');
+        System.assertEquals(dummyAcc.IsDeleted, outputs[0].booleanOutput,'Unexpected boolean output.');
 
         System.assertEquals(dummyAcc.NumberOfEmployees, outputs[0].numberOutput,'Unexpected number output.');
 
